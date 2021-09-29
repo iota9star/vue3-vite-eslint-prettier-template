@@ -5,16 +5,43 @@ import viteCompression from "vite-plugin-compression";
 import { minifyHtml } from "vite-plugin-html";
 import analyze from "rollup-plugin-analyzer";
 import * as path from "path";
+import styleImport from "vite-plugin-style-import";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: `/hello/`,
+  build: {
+    outDir: `hello`,
+    assetsDir: `legacy`,
+    assetsInlineLimit: 1024, //1kb
+    cssCodeSplit: true,
+    // rollupOptions: {
+    //   output: {
+    //     entryFileNames: `entries/[name].[hash].js`,
+    //     chunkFileNames: `chunks/[name].[hash].js`,
+    //     assetFileNames: `assets/[name].[hash].[ext]`,
+    //   },
+    // },
+  },
+  server: {
+    port: 23333,
+    proxy: {
+      "/proxy-api": `https://proxy.com`,
+    },
+  },
   resolve: {
-    alias: [
-      {
-        find: `/@`,
-        replacement: path.join(__dirname, `src`),
-      },
-    ],
+    alias: {
+      "@": path.resolve(__dirname, `src`),
+      "@style": path.resolve(__dirname, `src/style`),
+      "@store": path.resolve(__dirname, `src/store`),
+      "@router": path.resolve(__dirname, `src/router`),
+      "@components": path.resolve(__dirname, `src/components`),
+      "@assets": path.resolve(__dirname, `src/assets`),
+      "@api": path.resolve(__dirname, `src/api`),
+      "@compositions": path.resolve(__dirname, `src/compositions`),
+      "@views": path.resolve(__dirname, `src/views`),
+      "@utils": path.resolve(__dirname, `src/utils`),
+    },
   },
   plugins: [
     vue(),
@@ -46,5 +73,19 @@ export default defineConfig({
       removeComments: true,
       removeEmptyAttributes: true,
     }),
+    styleImport({
+      libs: [],
+    }),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "./src/style/var.scss";`,
+      },
+      less: {
+        modifyVars: {},
+        javascriptEnabled: true,
+      },
+    },
+  },
 });

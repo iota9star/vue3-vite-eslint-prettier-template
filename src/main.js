@@ -1,8 +1,6 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 
-import "amfe-flexible/index.js";
-
 import "./style/index.scss";
 
 import api from "./api";

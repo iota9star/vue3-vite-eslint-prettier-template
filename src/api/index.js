@@ -1,28 +1,18 @@
 const modules = import.meta.globEager(`./modules/*.js`);
 
-const apiModules = {};
-
-const checkExistModule = (modulePath, moduleName) => {
-  if (apiModules[moduleName]) {
-    const errorMsg = `模块<${moduleName}>已注册，请检查模块文件<${modulePath}>是否声明有误`;
-    throw Error(errorMsg);
-  }
-};
-
-for (const modulePath in modules) {
-  if (modules.hasOwnProperty(modulePath)) {
-    const module = modules[modulePath].default;
-    let moduleName = module.moduleName;
-    if (!moduleName) {
+const createApiModules = () => {
+  const apiModules = {};
+  for (const modulePath in modules) {
+    if (modules.hasOwnProperty(modulePath)) {
+      const module = modules[modulePath].default;
       const paths = modulePath.split(`/`);
       const fileName = paths[paths.length - 1];
-      moduleName = fileName.split(`.`)[0];
+      const moduleName = fileName.split(`.`)[0];
+      apiModules[moduleName] = module;
     }
-    checkExistModule(modulePath, moduleName);
-    apiModules[moduleName] = module;
   }
-}
+  console.debug(`注册api模块<${Object.keys(apiModules).length}个>`);
+  return apiModules;
+};
 
-console.info(`注册api模块<${Object.keys(apiModules).length}个>`);
-
-export default apiModules;
+export default createApiModules();

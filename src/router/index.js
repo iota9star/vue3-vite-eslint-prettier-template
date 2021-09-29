@@ -7,7 +7,7 @@ const router = createRouter({
   routes,
 });
 router.beforeEach((to, from, next) => {
-  console.log(`<${from.name || ``}:${from.fullPath}> => <${to.name}:${to.fullPath}>`);
+  console.debug(`<${from.name || ``}:${from.fullPath}> => <${to.name}:${to.fullPath}>`);
   next();
 });
 export default router;

@@ -1,10 +1,8 @@
 import http from "../http";
+const baseUrl = `/user`;
 
-import { createApiModule } from "../utils";
-
-export default createApiModule({
-  name: `用户信息相关模块`,
-  moduleName: `user`,
-  baseUrl: ``,
-  login: (data) => http.post(`${this.baseUrl}`, data),
-});
+export default {
+  name: `user-module`,
+  baseUrl,
+  login: (data) => http.post(`${baseUrl}/login`, data, { cancelToken: http.tokens.get(`${baseUrl}/login`) }),
+};
