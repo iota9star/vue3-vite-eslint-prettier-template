@@ -6,6 +6,7 @@ import { minifyHtml } from "vite-plugin-html";
 import analyze from "rollup-plugin-analyzer";
 import * as path from "path";
 import styleImport from "vite-plugin-style-import";
+import mkcert from "vite-plugin-mkcert";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -25,6 +26,7 @@ export default defineConfig({
   },
   server: {
     port: 23333,
+    https: true,
     proxy: {
       "/proxy-api": `https://proxy.com`,
     },
@@ -48,6 +50,7 @@ export default defineConfig({
     legacy({
       targets: [`> 0%`],
     }),
+    mkcert(),
     analyze(),
     viteCompression({
       // RegExp or (file: string) => boolean 指定哪些资源不压缩 /\.(js|mjs|json|css|html)$/i

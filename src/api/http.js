@@ -3,7 +3,6 @@ import { U8 } from "../utils/uuid";
 
 const http = axios.create({
   timeout: 60 * 1000,
-  withCredentials: true,
 });
 
 const catchError = (error) => {
@@ -23,9 +22,9 @@ const catchError = (error) => {
 const at = (url) => {
   const now = Date.now();
   if (/\\?\S+?=/.test(url)) {
-    return `${url}&_t=${now}`;
+    return `${url}&_=${now}`;
   }
-  return `${url}?_t=${now}`;
+  return `${url}?_=${now}`;
 };
 
 http.interceptors.request.use((config) => {

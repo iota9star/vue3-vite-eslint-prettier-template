@@ -19,7 +19,8 @@
     "url": "https://github.com/iota9star/vue3-vite-eslint-prettier-template/issues"
   },
   "scripts": {
-    "dev:dev": "vite --mode development --host --debug",
+    "dev:debug": "vite --mode development --host --debug",
+    "dev:dev": "vite --mode development --host",
     "dev:staging": "vite --mode staging",
     "dev:prod": "vite --mode production",
     "build:dev": "vite build --mode staging",
@@ -53,13 +54,16 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^7.18.0",
+    "postcss": "^8.3.8",
+    "postcss-import": "^14.0.2",
     "prettier": "^2.4.1",
     "rollup-plugin-analyzer": "^4.0.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
-    "sass": "^1.42.1",
+    "tailwindcss": "^2.2.16",
     "vite": "^2.5.10",
     "vite-plugin-compression": "^0.3.5",
     "vite-plugin-html": "^2.1.1",
+    "vite-plugin-mkcert": "^1.5.1",
     "vite-plugin-style-import": "^1.2.1"
   }
 }
